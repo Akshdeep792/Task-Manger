@@ -1,0 +1,33 @@
+
+<%- include("header") -%>
+    <!-- <a href="about.html">Google</a> -->
+    <div id="heading">
+    <h1> <%= listTitle %></h1>
+</div>
+
+    
+       
+        <div class="box">
+            <%    for(var i = 0 ; i<newListItems.length ; i++){ %>
+                <div class="item">
+                    <input type="checkbox">
+                <p><%= newListItems[i] %> </p> 
+            </div>
+           <% } %>  
+
+           <form action="/" method="POST">
+            <input type="text" name="newItem" placeholder="New Item" autocomplete="off">
+            <button type="submit" name="button">+</button>
+        </form>
+        </div>
+       
+    
+
+    <!-- <form action="/" method="post">
+        < <input type="checkbox" name="itemName" id="">    -->
+        <!-- <input type="text" name="newItem">
+        <button type="submit" name="button">Add</button>
+    
+    </form> --
+
+    <%- include("footer") -%>
