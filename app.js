@@ -11,9 +11,11 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static(path.join(__dirname, 'public')));
 
-mongoose.connect("mongodb//localhost:27017/todoListDb")
-.then(() => console.log("Connection Succesful!......."))
-.catch((err) => console.log(err));
+mongoose.connect("mongodb://localhost:27017/todoListdb")
+    .then(() => console.log("connection successfull........."))
+    .catch((err) => console.log(err));
+
+
 
 
 
@@ -27,36 +29,49 @@ const itemSchema = new mongoose.Schema(
 
 const Item = new mongoose.model("lists", itemSchema);
 
-const groceryList = async () =>{
-    try{
-        const bread = new Item(
-            {
-                itemName : "Bread"
-            }
-        )
-        const biscuits = new Item(
-            {
-                itemName : "Biscuits"
-            }
-        )
-        const softDrink = new Item(
-            {
-                itemName : "Softdrink"
-            }
-        )
-            const result = await Item.insertMany([bread, biscuits, softDrink]);
-            console.log(result);
-    }catch(err){
-        console.log(err);
-    }
-}
 
-groceryList();
+
+
+
+
 app.get("/", function (req, res) {
   
+    const getDocument = async ()=>{
+            const result = await Item
+            .find();
+            if(result.length == 0){
+                const groceryList = async () =>{
+                    try{
+                        const bread = new Item(
+                            {
+                                itemName : "Bread"
+                            }
+                        )
+                        const biscuits = new Item(
+                            {
+                                itemName : "Biscuits"
+                            }
+                        )
+                        const softDrink = new Item(
+                            {
+                                itemName : "Softdrink"
+                            }
+                        )
+                            const result = await Item.insertMany([bread, biscuits, softDrink]);
+                            console.log(result);
+                    }catch(err){
+                        console.log(err);
+                    }
+                }
+                
+                groceryList();
+            }
+            res.render("list", { listTitle: "Today" , newListItems: result});   
+           
+           
+        }
     
-    
-    res.render("list", { listTitle: "Today" , newListItems: items});
+    getDocument();
 });
 
 app.post("/", function(req, res){
