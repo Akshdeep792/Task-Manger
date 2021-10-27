@@ -11,7 +11,7 @@
 // app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(express.static(path.join(__dirname, 'public')));
 
-// mongoose.connect("mongodb://localhost:27017/todoListdb")
+// mongoose.connect("mongodb+srv://admin-aksh:Test1234@todolist.nttzq.mongodb.net/todoListdb")
 //     .then(() => console.log("connection successfull........."))
 //     .catch((err) => console.log(err));
 
