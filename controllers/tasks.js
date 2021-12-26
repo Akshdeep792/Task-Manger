@@ -5,8 +5,13 @@ const getAllTasks = (req, res) => {
     res.send('All items');
 }
 const createTasks = async (req, res) => {
-    const task = await Task.create(req.body);
-    res.status(201).json({ task });
+    try{
+        const task = await Task.create(req.body);
+        res.status(201).json({ task });
+    }catch(err){
+        res.status(500).json({msg : err});
+    }
+    
 }
 const getTasks = (req, res) => {
     res.json({ id: req.params.id });
