@@ -24,7 +24,7 @@ const port = process.env.PORT || 3000;
 
 const start = async () => {
     try {
-        await  connectDB(process.env.ATLAS_URI);
+        await  connectDB(process.env.LOCAL_HOST);
         app.listen(port, () => {
             console.log(`The server is live on ${port}`);
         })
