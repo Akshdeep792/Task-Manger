@@ -6,7 +6,7 @@ require('dotenv').config();
 
 
 // middleware
-app.use(express.static("public"));
+app.use(express.static('./public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -14,9 +14,9 @@ app.use('/api/v1/tasks', tasks);
 
 
 
-app.get("/", (req,res) => {
-    res.send('hello')
-})
+// app.get("/", (req,res) => {
+//     res.send('hello')
+// })
 
 
 

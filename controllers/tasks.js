@@ -1,11 +1,12 @@
 const { TooManyAttemptsError } = require('passport-local-mongoose/lib/errors');
-const Task = require('../models/task');
+const Tasks = require('../models/task');
 
 
 const getAllTasks = async (req, res) => {
     try {
-        const task = await Task.find({});
-        res.status(200).json({ task })
+        const tasks = await Tasks.find({});
+        console.log(tasks);
+        res.status(200).json({ tasks })
     } catch (err) {
         res.status(500).json({ msg: err });
 
@@ -13,8 +14,8 @@ const getAllTasks = async (req, res) => {
 }
 const createTasks = async (req, res) => {
     try {
-        const task = await Task.create(req.body);
-        res.status(201).json({ task });
+        const tasks = await Tasks.create(req.body);
+        res.status(201).json({ tasks });
     } catch (err) {
         res.status(500).json({ msg: err });
     }
@@ -23,25 +24,24 @@ const createTasks = async (req, res) => {
 const getTasks = async (req, res) => {
     try {
         const { id: taskID } = req.params;
-        const task = await Task.findOne({ _id: taskID });
+        const tasks = await Tasks.findOne({ _id: taskID });
 
-        if (!task) {
-            res.status(404).json({ msg: `No task with id ${taskID}` })
+        if (!tasks) {
+            res.status(404).json({ msg: `No tasks with id ${taskID}` })
         }
-        res.status(201).json({ task });
+        res.status(201).json({ tasks });
     } catch (err) {
         res.status(500).json({ msg: err });
-
     }
 
 }
 const updateTasks = async (req, res) => {
     try{const { id: taskID} = req.params;
-    const task = await Task.findOneAndUpdate({ _id: taskID }, req.body, {
+    const tasks = await Tasks.findOneAndUpdate({ _id: taskID }, req.body, {
         new:true,
         runValidators : true
     });
-    res.status(201).json({ task});}catch(err){
+    res.status(201).json({ tasks});}catch(err){
         res.status(500).json({ msg: err });
         
     }
@@ -49,12 +49,12 @@ const updateTasks = async (req, res) => {
 const deleteTasks = async (req, res) => {
     try {
         const { id: taskID } = req.params;
-        const task = await Task.findOneAndDelete({ _id: taskID });
+        const tasks = await Tasks.findOneAndDelete({ _id: taskID });
 
-        if (!task) {
-            res.status(404).json({ msg: `No task with id ${taskID}` })
+        if (!tasks) {
+            res.status(404).json({ msg: `No tasks with id ${taskID}` })
         }
-        res.status(201).json({ task : null , msg : 'success'});
+        res.status(201).json({ tasks : null , msg : 'success'});
     } catch (err) {
         res.status(500).json({ msg: err });
 
